@@ -27,29 +27,69 @@
     })
 
 
-    const newMovie = {
-        title: 'The Goddessfather',
-        year: 1992,
-        director: 'Francis Ford Coppola',
-        rating: 4.2,
-        runtime: 175,
-        genre: 'Crime, Drama',
-        actors: 'Marlon Brando, Al Pacino, James Caan, Diane Keaton',
+    $('#addButton').on('click',function (){
+        openModal();
+    })
+
+
+    // OPEN MODAL
+    function openModal(e) {
+        // e.preventDefault();
+        modal.style.display = "block";
+        $('#input').html(
+        `
+            <div class="card mb-1">
+                <div class="card-body bg-black text-light">
+                    <div class="card-text fs-7" id="title"> title: <input></div>
+                    <div class="card-text fs-7" id="year">year:<input></div>
+                    <div class="card-text fs-7" id="director">director:<input></div>
+                    <div class="card-text fs-7" id="rating">rating:<input></div>
+                    <div class="card-text fs-7" id="runtime">runtime:<input></div>
+                    <div class="card-text fs-7" id="genre">genre:<input></div>
+                    <div class="card-text fs-7" id="actors">actors:<input></div>
+                </div>
+                <button id="addMovieSubmitBtn">Submit</button>
+            </div>`)
     }
 
-    addMovie(newMovie).then(()=>{
-        return getMovies()
-    }).then (movies=>{
-        console.log(movies)
-    });
+    $('.close','#addMovieSubmitBtn').on('click',function (){
+        closeModal()
+    })
 
+    // CLOSE MODAL
+    function closeModal() {
+        modalContent.classList.add("slide-up");
+        setTimeout(() => {
+            modal.style.display = "none";
+            modalContent.classList.remove("slide-up");
+        }, 500)
+    }
 
-    // await addMovies(movie);
-    // const movies = await getMovies();
-    // console.log(movies)
+// //addMovie
+//     const newMovie = {
+//         title: 'The Goddessfather',
+//         year: 1992,
+//         director: 'Francis Ford Coppola',
+//         rating: 4.2,
+//         runtime: 175,
+//         genre: 'Crime, Drama',
+//         actors: 'Marlon Brando, Al Pacino, James Caan, Diane Keaton',
+//     }
+//
+//     addMovie(newMovie).then(()=>{
+//         return getMovies()
+//     }).then (movies=>{
+//         console.log(movies)
+//     });
 
     await deleteMovie({
         id: "Thz9L2TMcSMYhJulDC2R"
     })
+
+
+    const modal = document.querySelector(".modal"),
+    modalContent = document.querySelector(".modal-content"),
+    btn = document.querySelector(".btn"),
+    close = document.querySelector(".close");
 
 })();
