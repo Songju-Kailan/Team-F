@@ -3,7 +3,53 @@
     // Before you can use the database, you need to configure the "db" object 
     // with your team name in the "js/movies-api.js" file.
     getMovies().then((movies) =>{
+
+
         console.log(movies);
+        let moviesList = '';
+
+        for(let i=0; i<movies.length; i++){
+            moviesList +=(`
+            <div class="card mb-1">
+                <img src="./images/postman.jpg" class="card-img-top" alt="...">  
+                <div class="card-body bg-black text-light">
+                    <div class="card-text fs-7" id="title"> title: ${movies[i].title} </div>
+                    <div class="card-text fs-7" id="year">year: ${movies[i].year}</div>
+                    <div class="card-text fs-7" id="director">director: ${movies[i].director}</div>
+                    <div class="card-text fs-7" id="rating">rating: ${movies[i].rating}</div>
+                    <div class="card-text fs-7" id="runtime">runtime: ${movies[i].runtime}</div>
+                    <div class="card-text fs-7" id="genre">genre: ${movies[i].genre}</div>
+                    <div class="card-text fs-7" id="actors">actors: ${movies[i].actors}</div>
+                </div>
+            </div>`)
+        }
+        $('.card').html(moviesList)
+    })
+
+
+    const newMovie = {
+        title: 'The Goddessfather',
+        year: 1992,
+        director: 'Francis Ford Coppola',
+        rating: 4.2,
+        runtime: 175,
+        genre: 'Crime, Drama',
+        actors: 'Marlon Brando, Al Pacino, James Caan, Diane Keaton',
+    }
+
+    addMovie(newMovie).then(()=>{
+        return getMovies()
+    }).then (movies=>{
+        console.log(movies)
+    });
+
+
+    // await addMovies(movie);
+    // const movies = await getMovies();
+    // console.log(movies)
+
+    await deleteMovie({
+        id: "Thz9L2TMcSMYhJulDC2R"
     })
 
 })();
