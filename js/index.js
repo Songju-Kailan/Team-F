@@ -24,12 +24,12 @@
                     <div class="card-text" id="genre">genre: ${movies[i].genre}</div>
                     <div class="card-text" id="actors">actors: ${movies[i].actors}</div>
                 </div>
-                <button id="deleteBtn" data-movieID="${movies[i].id}" type="button" class="btn btn-danger">Delete</button>
+                <button id="deleteBtn"  data-id="${movies[i].id}" type="button" class="delete-btn btn btn-danger">Delete</button>
             </div>
             `)
            }
 
-           $('.movieList').html(moviesList)
+           $('#movieList').html(moviesList)
 
        })
    }
@@ -108,16 +108,21 @@
 
 //Delete movie on click
 
-    $('#deleteBtn').on('click','.delete-btn',function(e){
-        e.preventDefault()
+    $('#movieList').on('click','.delete-btn',function(e){
+        // alert($(this).data('id'))
+        // e.preventDefault()
         console.log('clicked')
 
-        const thisID= $(this).data("movieID");
+        const thisID= $(this).data("id");
         console.log('clicked')
         console.log(thisID)
-        // deleteMovie({
-        //     thisID
-        // })
+        deleteMovie({
+            id: `${thisID}`
+        }).then(()=>{
+            return getMovies()
+        }).then(()=>{
+            window.location.reload()
+        });
     })
 
 
@@ -141,6 +146,26 @@
     // $(`.bnt`).on(`click`, ()=>{
     //     let userText = $(`.search-box`).val();
     // })
+
+
+    "use strict";
+
+    setTimeout(function() {
+        const html = `
+            <div>
+                <button class="delete-btn" data-id="1">Delete</button>
+            </div>
+            <div>
+                <button class="delete-btn" data-id="2">Delete</button>
+            </div>
+            <div>
+                <button class="delete-btn" data-id="3">Delete</button>
+            </div>
+            <button>Something Else</button>
+        `;
+        $('#things').html(html);
+    }, 1000);
+
 
 
 })();

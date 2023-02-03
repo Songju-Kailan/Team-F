@@ -13,50 +13,52 @@ class FirebaseDatabase {
         firebase.initializeApp(firebaseConfig);
         this.db = firebase.firestore();
         this.collectionName = `movies_${team}`;
-        // this.createCollection(`movies_${team}`);
+        this.createCollection(`movies_${team}`);
     }
-    // async createCollection(collection) {
-    //     // check to see if the collection has more than 0 documents
-    //     const response = await this.db.collection(collection).get();
-    //     const collections = response.docs;
-    //     // if the collection doesn't exist, create it
-    //     if (collections.length === 0) {
-    //         // create an array of example movies
-    //         const movies = [
-    //             {
-    //                 title: 'The Shawshank Redemption',
-    //                 year: 1994,
-    //                 director: 'Frank Darabont',
-    //                 rating: 9.3,
-    //                 runtime: 142,
-    //                 genre: 'Drama',
-    //                 actors: 'Tim Robbins, Morgan Freeman, Bob Gunton, William Sadler',
-    //             },
-    //             {
-    //                 title: 'The Godfather',
-    //                 year: 1972,
-    //                 director: 'Francis Ford Coppola',
-    //                 rating: 9.2,
-    //                 runtime: 175,
-    //                 genre: 'Crime, Drama',
-    //                 actors: 'Marlon Brando, Al Pacino, James Caan, Diane Keaton',
-    //             },
-    //             {
-    //                 title: 'The Godfather: Part II',
-    //                 year: 1974,
-    //                 director: 'Francis Ford Coppola',
-    //                 rating: 9.0,
-    //                 runtime: 202,
-    //                 genre: 'Crime, Drama',
-    //                 actors: 'Al Pacino, Robert De Niro, Robert Duvall, Diane Keaton',
-    //             }
-    //         ];
-    //         // add the example movies to the collection
-    //         movies.forEach(movie => {
-    //             this.db.collection(collection).add(movie);
-    //         });
-    //     }
-    // }
+    async createCollection(collection) {
+        // check to see if the collection has more than 0 documents
+        const response = await this.db.collection(collection).get();
+        // const collections = response.docs;
+        // if the collection doesn't exist, create it
+        //TODO: this area is commented out to prevent duplicates
+
+        // if (collections.length === 0) {
+        //     // create an array of example movies
+        //     const movies = [
+        //         {
+        //             title: 'The Shawshank Redemption',
+        //             year: 1994,
+        //             director: 'Frank Darabont',
+        //             rating: 9.3,
+        //             runtime: 142,
+        //             genre: 'Drama',
+        //             actors: 'Tim Robbins, Morgan Freeman, Bob Gunton, William Sadler',
+        //         },
+        //         {
+        //             title: 'The Godfather',
+        //             year: 1972,
+        //             director: 'Francis Ford Coppola',
+        //             rating: 9.2,
+        //             runtime: 175,
+        //             genre: 'Crime, Drama',
+        //             actors: 'Marlon Brando, Al Pacino, James Caan, Diane Keaton',
+        //         },
+        //         {
+        //             title: 'The Godfather: Part II',
+        //             year: 1974,
+        //             director: 'Francis Ford Coppola',
+        //             rating: 9.0,
+        //             runtime: 202,
+        //             genre: 'Crime, Drama',
+        //             actors: 'Al Pacino, Robert De Niro, Robert Duvall, Diane Keaton',
+        //         }
+        //     ];
+        //     // add the example movies to the collection
+        //     movies.forEach(movie => {
+        //         this.db.collection(collection).add(movie);
+        //     });
+        // }
+    }
     async fetch(url, options) {
         let response, id;
         // Validate options object
