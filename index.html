@@ -31,30 +31,54 @@
 
 
             <button id="addButton" type="button" class="btn btn-primary">Add Movie</button>
-            <div class="modal" id="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
+<!--            Modal for update-->
+            <div class="modalAdd" id="modal-add">
+                <div class="modalA-content">
+                    <span class="close" id="closeBtn-add">&times;</span>
                     <div class="modalCard card mb-1">
+                        Lets Add a Movie!
                         <div class="card-body bg-black text-light">
-                            <div class="card-text fs-7"> title: <input id="title"></div>
-                            <div class="card-text fs-7">year:<input id="year"></div>
-                            <div class="card-text fs-7" >director:<input id="director"></div>
-                            <div class="card-text fs-7" >rating:<input id="rating"></div>
-                            <div class="card-text fs-7" >runtime:<input id="runtime"></div>
-                            <div class="card-text fs-7" >genre:<input id="genre"></div>
-                            <div class="card-text fs-7" >actors:<input id="actors"></div>
+                            <div class="card-text fs-7"> title: <input id="titleA"></div>
+                            <div class="card-text fs-7">year:<input id="yearA"></div>
+                            <div class="card-text fs-7">director:<input id="directorA"></div>
+                            <div class="card-text fs-7">rating:<input id="ratingA"></div>
+                            <div class="card-text fs-7">runtime:<input id="runtimeA"></div>
+                            <div class="card-text fs-7">genre:<input id="genreA"></div>
+                            <div class="card-text fs-7">actors:<input id="actorsA"></div>
                         </div>
                         <button id="addMovieSubmitBtn">Submit</button>
                     </div>
-                    </div>
                 </div>
             </div>
+        </div>
 
             <div class="container-flex">
                 <div class="column">
                     <div class="row d-flex flex-row">
                         <div id="movieList" class="movie-list row">
+                            <!--                        Modal for update-->
+                            <div class="modalUpdate" id="modal-update">
+                                <div class="modalU-content">
+                                    <span class="close" id="closeBtn-update">&times;</span>
+                                    <div class="modalCard card mb-1">
+                                        Lets Update a Movie!
+                                        <div class="card-body bg-black text-light">
+                                            <div class="card-text fs-7"> title: <input id="titleU"></div>
+                                            <div class="card-text fs-7">year:<input id="yearU"></div>
+                                            <div class="card-text fs-7">director:<input id="directorU"></div>
+                                            <div class="card-text fs-7">rating:<input id="ratingU"></div>
+                                            <div class="card-text fs-7">runtime:<input id="runtimeU"></div>
+                                            <div class="card-text fs-7">genre:<input id="genreU"></div>
+                                            <div class="card-text fs-7">actors:<input id="actorsU"></div>
+                                        </div>
+                                        <button id="updateMovieSubmitBtn" >Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
+
+
                     </div>
                 </div>
             </div>

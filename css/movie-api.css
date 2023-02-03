@@ -32,7 +32,7 @@ body{
     border: none;
 }
 
-.modal {
+.modalAdd, .modalUpdate {
     display: none;
     position: fixed;
     left: 0%;
@@ -45,7 +45,7 @@ body{
 }
 
 
-.modal-content {
+.modalA-content,.modalU-content {
     width: 80%;
     max-width: 60rem;
     background-color: black;
@@ -71,7 +71,7 @@ input{
 /*    }*/
 /*}*/
 
-.close {
+#closeBtn-add, #closeBtn-update {
     position: absolute;
     top: 5px;
     right: 10px;
@@ -90,4 +90,10 @@ input{
     100% {
         transform: translateY(-50rem);
     }
+}
+
+.delete-btn, .update-btn{
+    width: 12vw;
+    height: 5vh;
+    font-size: 2vw;
 }
