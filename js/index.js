@@ -2,29 +2,38 @@
     // This is the entry point for your application. Write all of your code here.
     // Before you can use the database, you need to configure the "db" object 
     // with your team name in the "js/movies-api.js" file.
-    getMovies().then((movies) =>{
+   function getMovieCard() {
 
 
-        console.log(movies);
-        let moviesList = '';
+       getMovies().then((movies) => {
 
-        for(let i=0; i<movies.length; i++){
-            moviesList +=(`
-            <div class="card mb-1">
+
+           console.log(movies);
+           let moviesList = '';
+
+           for (let i = 0; i < movies.length; i++) {
+               moviesList += (`
+            <div class="movieCard card mb-1">
                 <img src="./images/postman.jpg" class="card-img-top" alt="...">  
                 <div class="card-body bg-black text-light">
-                    <div class="card-text fs-7" id="title"> title: ${movies[i].title} </div>
-                    <div class="card-text fs-7" id="year">year: ${movies[i].year}</div>
-                    <div class="card-text fs-7" id="director">director: ${movies[i].director}</div>
-                    <div class="card-text fs-7" id="rating">rating: ${movies[i].rating}</div>
-                    <div class="card-text fs-7" id="runtime">runtime: ${movies[i].runtime}</div>
-                    <div class="card-text fs-7" id="genre">genre: ${movies[i].genre}</div>
-                    <div class="card-text fs-7" id="actors">actors: ${movies[i].actors}</div>
+                    <div class="card-text" id="title"> title: ${movies[i].title} </div>
+                    <div class="card-text" id="year">year: ${movies[i].year}</div>
+                    <div class="card-text" id="director">director: ${movies[i].director}</div>
+                    <div class="card-text" id="rating">rating: ${movies[i].rating}</div>
+                    <div class="card-text" id="runtime">runtime: ${movies[i].runtime}</div>
+                    <div class="card-text" id="genre">genre: ${movies[i].genre}</div>
+                    <div class="card-text" id="actors">actors: ${movies[i].actors}</div>
                 </div>
-            </div>`)
-        }
-        $('.card').html(moviesList)
-    })
+            </div>
+            `)
+           }
+
+           $('.movieList').html(moviesList)
+
+       })
+   }
+
+   getMovieCard();
 
 
     $('#addButton').on('click',function (){
@@ -38,7 +47,7 @@
         modal.style.display = "block";
         $('#input').html(
         `
-            <div class="card mb-1">
+            <div class="modalCard card mb-1">
                 <div class="card-body bg-black text-light">
                     <div class="card-text fs-7" id="title"> title: <input></div>
                     <div class="card-text fs-7" id="year">year:<input></div>
@@ -52,7 +61,7 @@
             </div>`)
     }
 
-    $('.close','#addMovieSubmitBtn').on('click',function (){
+    $('.close').on('click',function (){
         closeModal()
     })
 
@@ -82,8 +91,10 @@
 //         console.log(movies)
 //     });
 
+
+//    Delete movie
     await deleteMovie({
-        id: "Thz9L2TMcSMYhJulDC2R"
+        id: "zV6ycBJ9sNLdOfM8BkDH"
     })
 
 
