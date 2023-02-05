@@ -1,21 +1,31 @@
+"use strict";
+
 (async () => {
+
     // This is the entry point for your application. Write all of your code here.
     // Before you can use the database, you need to configure the "db" object 
     // with your team name in the "js/movies-api.js" file.
-   function getMovieCard() {
+
+// Movie data into a variable
+
+    let movieData = getMovies().then((data)=>{
+        return data;
+    })
+    let movieList = await movieData;
+    // console.log(movieList)
 
 
-       getMovies().then((movies) => {
 
-
-           console.log(movies);
-           let moviesList = '';
-
-           for (let i = 0; i < movies.length; i++) {
-               moviesList += (`
+//  Load movie into screen
+    function showMovies() {
+        getMovies().then((movies) => {
+            console.log(movies);
+            let moviesList = '';
+            for (let i = 0; i < movies.length; i++) {
+                moviesList += (`
             <div class="movieCard card mb-1">
                 <img src="./images/postman.jpg" class="card-img-top" alt="...">  
-                <div class="card-body bg-black text-light" id="${movies[i]}">
+                <div class="movieInfoGrp card-body bg-black text-light" id="${movies[i]}">
                     <div class="card-text" id="title"> title: ${movies[i].title} </div>
                     <div class="card-text" id="year">year: ${movies[i].year} </div>
                     <div class="card-text" id="director">director: ${movies[i].director} </div>
@@ -30,37 +40,25 @@
                 </div>
             </div>
             `)
-           }
-
-           $('#movieList').html(moviesList)
-
-       })
-   }
-   getMovieCard();
+            }
+            $('#movieList').html(moviesList)
+        })
+    }
+    showMovies();
 
 
 
-
-
-    // OPEN MODAL Add function
-    function openModalA(e) {
+//  OPEN MODAL Add function
+    function openModalAdd(e) {
         // e.preventDefault();
         $('#modal-add').css({
             display : "block"
         })
     }
 
-    // OPEN MODAL Update function
-    function openModalU(e) {
-        // e.preventDefault();
-        $('#modal-update').css({
-            display : "block"
-        })
-    }
 
-
-    // CLOSE MODAL function
-    function closeModalA() {
+//  CLOSE MODAL function
+    function closeModalAdd() {
         modalContentA.classList.add("slide-up");
         setTimeout(() => {
             modalA.style.display = "none";
@@ -68,53 +66,74 @@
         }, 500)
     }
 
-    function closeModalU() {
-        modalContentU.classList.add("slide-up");
-        setTimeout(() => {
-            modalU.style.display = "none";
-            modalContentU.classList.remove("slide-up");
-        }, 500)
-    }
 
-
-    // // Close Modal on click of close icon
+//  Close Modal on click of close icon
     $('#closeBtn-add').on('click',function (e){
-        closeModalA()
-    })
-
-    $('#closeBtn-update').on('click',function (e){
-        closeModalU()
+        closeModalAdd()
     })
 
 
+// Open Modal on click
     $('#addButton').on('click',function (){
-        openModalA();
+        openModalAdd();
     })
 
+// Update on click
     $('#movieList').on('click','.update-btn', function(e){
-        openModalU()
+        e.preventDefault();
+        const thisID= $(this).data("id");
+        console.log('update button clicked')
+        console.log(thisID)
+
+        let movieInfo = ''
+        movieList.forEach((movie)=>{
+            if (movie.id === thisID)
+            movieInfo +=`
+                <div class=" card-text" id="title"> title: <input class="input-update form-control-sm" id="title-input" value=" ${movie.title} "></div>
+                <div class=" card-text" id="year">year: <input class="input-update form-control-sm" id="year-input" value=" ${movie.year} "></div>
+                <div class=" card-text" id="director">director: <input class="input-update form-control-sm" id="director-input" value=" ${movie.director} "></div>
+                <div class=" card-text" id="rating">rating: <input class="input-update form-control-sm" id="rating-input" value=" ${movie.rating} "></div>
+                <div class=" card-text" id="runtime">runtime: <input class="input-update form-control-sm" id="runtime-input" value=" ${movie.runtime} "></div>
+                <div class=" card-text" id="genre">genre: <input class="input-update form-control-sm" id="genre-input" value=" ${movie.genre} "></div>
+                <div class=" card-text" id="actors">actors: <input class="input-update form-control-sm" id="actors-input" value=" ${movie.actors} "></div>
+                <button id="updateConfirmBtn"  data-id="${movie.id}" type="button" class="update-confirm-btn btn btn-primary mt-1">Update</button>
+        `})
+        $(this).parent().parent().children('.movieInfoGrp').html(movieInfo);
     })
 
-// //addMovie
-//     const newMovie = {
-//         title: 'The Goddessfather',
-//         year: 1992,
-//         director: 'Francis Ford Coppola',
-//         rating: 4.2,
-//         runtime: 175,
-//         genre: 'Crime, Drama',
-//         actors: 'Marlon Brando, Al Pacino, James Caan, Diane Keaton',
-//     }
-//
-//     addMovie(newMovie).then(()=>{
-//         return getMovies()
-//     }).then (movies=>{
-//         console.log(movies)
-//     });
+// Confirm Update on click
+    $('#movieList').on('click','.update-confirm-btn', function(e){
+        e.preventDefault()
+        console.log('confirm update button clicked');
+
+        // console.log($(this).data("id"))
+        movieList.forEach((movie)=>{
+            if(movie.id=== $(this).data("id")) {
+                console.log(movie.id)
+                console.log($(this).data("id"))
+
+                const newMovie = {
+                    id: $(this).data("id"),
+                    title: $('#title-input').val(),
+                    year: $('#year-input').val(),
+                    director: $('#director-input').val(),
+                    rating: $('#rating-input').val(),
+                    runtime: $('#runtime-input').val(),
+                    genre: $('#genre-input').val(),
+                    actors: $('#actors-input').val(),
+                }
+               updateMovie(newMovie).then(()=>{
+                   return getMovies()
+               }).then(()=>{
+                   location.reload()
+               });
+            }
+        })
+    })
 
 
 //Add Movie on click
-        $('#addMovieSubmitBtn').on('click', function(e){
+    $('#addMovieSubmitBtn').on('click', function(e){
             e.preventDefault()
             console.log('button clicked')
             const newMovie = {
@@ -131,18 +150,14 @@
                 return getMovies()
             }).then (movies=>{
                 console.log(movies)
-            }).then (closeModalA)
+            }).then (closeModalAdd)
                 .then(()=>{
                     location.reload()
                 });
         })
 
 
-
-
-
-    //Delete movie on click
-
+//Delete movie on click
     $('#movieList').on('click','.delete-btn',function(e){
         // alert($(this).data('id'))
         // e.preventDefault()
@@ -160,88 +175,51 @@
         });
     })
 
+    $('#search-btn').on('click', function(e){
+        e.preventDefault()
+        const searchResult = $('#search-input').val();
 
-
-
-        // $('#updateMovieSubmitBtn').on('click', function(e){
-        //     e.preventDefault()
-        //     console.log('button clicked')
-        //     const newMovie = {
-        //         title: $('#titleU').val(),
-        //         year: $('#yearU').val(),
-        //         director: $('#directorU').val(),
-        //         rating: $('#ratingU').val(),
-        //         runtime: $('#runtimeU').val(),
-        //         genre: $('#genreU').val(),
-        //         actors: $('#actorsU').val(),
-        //     }
-        //     updateMovie (newMovie).then(()=>{
-        //         return getMovies()
-        //     }).then (movies=>{
-        //         console.log(movies)
-        //     })
-        //     // .then (closeModalU)
-        //     // .then(()=>{
-        //     //     // window.location.reload()
-        //     // });
-        // })
-
-
-    // function updateMovie(){
-        $('#updateMovieSubmitBtn').on('click', function(e){
-            e.preventDefault()
-            console.log('button clicked');
-
-
-            const newMovie = {
-                title: $('#titleU').val(),
-                year: $('#yearU').val(),
-                director: $('#directorU').val(),
-                rating: $('#ratingU').val(),
-                runtime: $('#runtimeU').val(),
-                genre: $('#genreU').val(),
-                actors: $('#actorsU').val(),
+        console.log("Searching for: " + $('#search-input').val());
+        console.log(searchResult);
+        let movieSearch = '';
+        movieList.forEach((movie)=>{
+            if(searchResult.includes(movie)){
+                movieSearch+= movie;
             }
-            updateMovie (newMovie).then(()=>{
-                return getMovies()
-            }).then (movies=>{
-                console.log(movies)
-            })
-            // .then (closeModalU)
-            // .then(()=>{
-            //     // window.location.reload()
-            // });
         })
-    // }
+        return movieSearch;
+    })
 
+    // const searchInput = document.querySelector(‘#search-input’);
+    // const searchBtn = document.querySelector(‘#search-btn’);
+    // searchBtn.addEventListener(“click”, function(e) {
+    //     e.preventDefault()
+    //     const searchResult = searchInput.value;
+    //     // console.log(“Searching for: ” + searchInput);
+    //     console.log(‘click’)
+    // });
 
 
 
     const modalA = document.querySelector(".modalAdd"),
-        modalU = document.querySelector(".modalUpdate"),
-        modalContentA = document.querySelector(".modalA-content"),
-        modalContentU = document.querySelector(".modalU-content")
-
-    // btn = document.querySelector(".btn"),
-    // close = document.querySelector(".close");
+        modalContentA = document.querySelector(".modalA-content");
 
 
-    "use strict";
 
-    setTimeout(function() {
-        const html = `
-            <div>
-                <button class="delete-btn" data-id="1">Delete</button>
-            </div>
-            <div>
-                <button class="delete-btn" data-id="2">Delete</button>
-            </div>
-            <div>
-                <button class="delete-btn" data-id="3">Delete</button>
-            </div>
-            <button>Something Else</button>
-        `;
-        $('#things').html(html);
-    }, 1000);
+    // setTimeout(function() {
+    //     const html = `
+    //         <div>
+    //             <button class="delete-btn" data-id="1">Delete</button>
+    //         </div>
+    //         <div>
+    //             <button class="delete-btn" data-id="2">Delete</button>
+    //         </div>
+    //         <div>
+    //             <button class="delete-btn" data-id="3">Delete</button>
+    //         </div>
+    //         <button>Something Else</button>
+    //     `;
+    //     $('#things').html(html);
+    // }, 1000);
 
 })();

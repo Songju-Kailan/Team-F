@@ -10,17 +10,18 @@
 <body>
         <div class="page-wrapper">
 <!--Header-->
-            <div class="container-fluid">
+            <div class="container">
                 <div class="column">
                     <div class="row">
 <!--                        Navbar-->
                         <nav class="navbar bg-body-tertiary">
                             <div class="container-fluid">
-                                <a class="navbar-brand">Navbar</a>
+                                <a class="navbar-brand">Movie</a>
                                 <form class="d-flex" role="search">
 <!--                                    Search-->
-                                    <input class="search-box form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                    <input id="search-input" class="search-box form-control me-2" type="text" placeholder="Search" aria-label="Search">
+                                    <button id="search-btn" class="btnSearch btn btn-outline-success" type="submit">Search</button>
+
                                 </form>
                             </div>
                         </nav>
@@ -33,52 +34,31 @@
             <button id="addButton" type="button" class="btn btn-primary">Add Movie</button>
 <!--            Modal for update-->
             <div class="modalAdd" id="modal-add">
-                <div class="modalA-content">
+                <div class="modalA-content text-light">
+                    Lets Add a Movie!
+
                     <span class="close" id="closeBtn-add">&times;</span>
                     <div class="modalCard card mb-1">
-                        Lets Add a Movie!
                         <div class="card-body bg-black text-light">
-                            <div class="card-text fs-7"> title: <input id="titleA"></div>
-                            <div class="card-text fs-7">year:<input id="yearA"></div>
-                            <div class="card-text fs-7">director:<input id="directorA"></div>
-                            <div class="card-text fs-7">rating:<input id="ratingA"></div>
-                            <div class="card-text fs-7">runtime:<input id="runtimeA"></div>
-                            <div class="card-text fs-7">genre:<input id="genreA"></div>
-                            <div class="card-text fs-7">actors:<input id="actorsA"></div>
+                            <div class="card-text"> title: <input class="input-modal input" id="titleA"></div>
+                            <div class="card-text">year:<input class="input-modal input" id="yearA"></div>
+                            <div class="card-text">director:<input class="input-modal input" id="directorA"></div>
+                            <div class="card-text">rating:<input class="input-modal input" id="ratingA"></div>
+                            <div class="card-text">runtime:<input class="input-modal input" id="runtimeA"></div>
+                            <div class="card-text">genre:<input class="input-modal input" id="genreA"></div>
+                            <div class="card-text">actors:<input class="input-modal input" id="actorsA"></div>
                         </div>
-                        <button id="addMovieSubmitBtn">Submit</button>
+                        <button class="btn btn-outline-success" id="addMovieSubmitBtn">Submit</button>
                     </div>
                 </div>
             </div>
-        </div>
 
-            <div class="container-flex">
-                <div class="column">
-                    <div class="row d-flex flex-row">
+
+            <div class="container-fluid">
+                <div class="column movie-column">
+                    <div class="row movie-row">
                         <div id="movieList" class="movie-list row">
-                            <!--                        Modal for update-->
-                            <div class="modalUpdate" id="modal-update">
-                                <div class="modalU-content">
-                                    <span class="close" id="closeBtn-update">&times;</span>
-                                    <div class="modalCard card mb-1">
-                                        Lets Update a Movie!
-                                        <div class="card-body bg-black text-light">
-                                            <div class="card-text fs-7"> title: <input id="titleU"></div>
-                                            <div class="card-text fs-7">year:<input id="yearU"></div>
-                                            <div class="card-text fs-7">director:<input id="directorU"></div>
-                                            <div class="card-text fs-7">rating:<input id="ratingU"></div>
-                                            <div class="card-text fs-7">runtime:<input id="runtimeU"></div>
-                                            <div class="card-text fs-7">genre:<input id="genreU"></div>
-                                            <div class="card-text fs-7">actors:<input id="actorsU"></div>
-                                        </div>
-                                        <button id="updateMovieSubmitBtn" >Submit</button>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
-
-
                     </div>
                 </div>
             </div>
