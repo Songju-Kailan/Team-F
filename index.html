@@ -10,28 +10,66 @@
 <body>
         <div class="page-wrapper">
 <!--Header-->
-            <div class="container">
-                <div class="column">
+            <div class="container-fluid ">
+
                     <div class="row">
 <!--                        Navbar-->
-                        <nav class="navbar bg-body-tertiary">
+                        <nav class="navbar navbar-dark bg-body-black fixed-top" id="navbar">
                             <div class="container-fluid">
-                                <a class="navbar-brand">Movie</a>
-                                <form class="d-flex" role="search">
-<!--                                    Search-->
-                                    <input id="search-input" class="search-box form-control me-2" type="text" placeholder="Search" aria-label="Search">
-                                    <button id="search-btn" class="btnSearch btn btn-outline-success" type="submit">Search</button>
 
-                                </form>
+                                <a href="default" id="logo" class="navbar-brand text-light">Movie</a>
+
+                                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="offcanvas offcanvas-end bg-black" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                                    <div class="offcanvas-header">
+                                        <h5 class="offcanvas-title text-light" id="offcanvasNavbarLabel">Movie</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                    </div>
+                                    <div class="offcanvas-body">
+                                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                            <li class="nav-item">
+                                                <a  id="addButton" type="button" class="nav-link active text-light dropEdit" aria-current="page" href="#" aria-label="Close" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">Add Movie</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a  class="nav-link active text-light dropEdit" aria-current="page" href="#" aria-label="Close" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">Edit</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <form class="d-flex" role="search">
+                                                    <!--                                    Search-->
+                                                    <input id="search-input" class="search-box form-control me-2 " type="search" placeholder="Search for Movies!" >
+                                                    <button id="search-btn" class="btnSearch btn btn-outline-success" type="submit"  aria-label="Close" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">Search</button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </nav>
+                    </div>
+                <div class="box mb-5" id="poster">
+                    <div class="text">Did you bring your popcorn?</div>
+                </div>
+
+            </div>
+<!--Main Page-->
+
+
+
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="functionGrp">
+                        <div class="input-group input-group-sm mt-5 mb-3" id="savedMovieSearchGrp">
+                            <input id="savedMovieSearchInput" placeholder="Search from favorites!" type="text" class="form-control " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                            <button type="button" class="btn btn-dark" id="savedMovieSearchBtn">Search</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
 
-
-            <button id="addButton" type="button" class="btn btn-primary">Add Movie</button>
+<!--            <button id="addButton" type="button" class="btn btn-primary">Add Movie</button>-->
 <!--            Modal for update-->
             <div class="modalAdd" id="modal-add">
                 <div class="modalA-content text-light">
@@ -55,12 +93,11 @@
 
 
             <div class="container-fluid">
-                <div class="column movie-column">
-                    <div class="row movie-row">
+                    <div class="movie-row row">
                         <div id="movieList" class="movie-list row">
                         </div>
                     </div>
-                </div>
+
             </div>
         </div>
 
