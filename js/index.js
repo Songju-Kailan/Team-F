@@ -27,112 +27,7 @@
     // console.log(movieList)
 
 
-// Load Movie info from search
-    let getPosterFromSearch = function (e) {
-        e.preventDefault()
-        const query = $('#search-input').val();
-        if (query === '') {
-            $('.text').html('<div class="text"><strong>Oops!</strong> Try adding something into the search field.</div>');
-        } else {
-            $('.text').html('<div class="alert"><strong>Loading...</strong></div>');
-            fetch(`https://api.themoviedb.org/3/search/movie?api_key=${keys.theMovieDb}&query=${query}`)
-                .then(response => response.json())
-                .then(data => {
-                    const posterURL = `https://image.tmdb.org/t/p/w500${data.results[0].poster_path}`;
-                    console.log(data.results[0]);
-                    // console.log(data.results[0].release_date.slice(0,4))
-                    $('.box').css({
-                        backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)), url(${posterURL})`,
-                        backgroundSize: "contain",
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center"
-                    })
 
-                    $('.text')
-                        .html(`<div class="text"><strong>${data.results[0].title}</strong> <br> ${data.results[0].release_date.slice(0, 4)} <br><button id="addToListBtn" type="button" class="btn btn-sm btn-dark mt-2">+</button></div> `)
-
-
-                    $('#addToListBtn').on('click', (e) => {
-                        const movie_id = data.results[0].id; // Replace with the ID of the movie you want to retrieve information for
-                        const api_key = keys.theMovieDb; // Replace with your actual API key
-                        const moviePromise = fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${api_key}`)
-                            .then(response => response.json());
-                        const creditsPromise = fetch(`https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${api_key}`)
-                            .then(response => response.json());
-
-                        Promise.all([moviePromise, creditsPromise])
-                            .then(results => {
-                                const movie = results[0];
-                                const credits = results[1];
-                                // RUNTIME
-                                console.log(movie.runtime); // get the runtime of the movie
-                                console.log(credits.cast); // get the list of actors in the movie
-                                // ACTORS
-                                let movieActors = '';
-                                console.log()
-                                for (let i = 0; i < credits.cast.length; i++) {
-                                    // console.log(credits.cast[i].name + " as " + credits.cast[i].character)
-                                    if (i === credits.cast.length - 1) {
-                                        movieActors += `${credits.cast[i].name}.`;
-                                    } else {
-                                        movieActors += `${credits.cast[i].name}, `;
-                                    }
-                                }
-                                const actorsFiltered = movieActors.split(', ').slice(0, 3).join(', ')
-                                console.log(actorsFiltered)
-
-                                const director = credits.crew.find(member => member.job === "Director").name
-                                console.log(director)
-
-                                // GENRES
-                                let genresAll = ''
-                                for (let i = 0; i < movie.genres.length; i++) {
-                                    // console.log(movie.genres[i].name + " as " + movie.genres[i].character)
-                                    if (i === movie.genres.length - 1) {
-                                        genresAll += `${movie.genres[i].name}.`;
-                                    } else {
-                                        genresAll += `${movie.genres[i].name}, `;
-                                    }
-                                }
-                                console.log(genresAll);
-
-                                // IMAGE PATH
-                                console.log(`https://image.tmdb.org/t/p/w500/${movie.poster_path}`); // get the poster URL of the movie
-
-
-                                console.log('add button clicked')
-                                const newMovie = {
-                                    title: `${data.results[0].title}`,
-                                    year: `${data.results[0].release_date.slice(0, 4)}`,
-                                    director: `${director}`,
-                                    rating: `${data.results[0].vote_average}`,
-                                    runtime: `${movie.runtime}`,
-                                    genre: `${genresAll}`,
-                                    actors: `${actorsFiltered}`
-                                }
-
-                                addMovie(newMovie).then(() => {
-                                    return getMovies()
-                                }).then(movies => {
-                                    console.log(movies)
-                                }).then(() => {
-                                    location.reload()
-                                });
-
-                            })
-
-                    })
-                });
-        }
-    }
-
-
-    $('#search-btn').click(getPosterFromSearch);
-    $('#search-input').keyup(function (event) {
-        if (event.keyCode == 13) {
-            getPosterFromSearch();
-        }
-    });
 
 
 //  Load movie into screen
@@ -254,7 +149,6 @@
 
     const modalA = document.querySelector(".modalAdd"),
         modalContentA = document.querySelector(".modalA-content");
-
 
 //  OPEN MODAL Add function
     function openModalAdd(e) {
@@ -433,6 +327,116 @@
         })
         location.reload();
     })
+
+
+// Load Movie info from search
+    let getPosterFromSearch = function (e) {
+        e.preventDefault()
+        const query = $('#search-input').val();
+        if (query === '') {
+            $('.text').html('<div class="text"><strong>Oops!</strong> Try adding something into the search field.</div>');
+        } else {
+            $('.text').html('<div class="alert"><strong>Loading...</strong></div>');
+            fetch(`https://api.themoviedb.org/3/search/movie?api_key=${keys.theMovieDb}&query=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+
+                    const posterURL = `https://image.tmdb.org/t/p/w500${data.results[0].poster_path}`;
+                    console.log(data.results[0]);
+                    // console.log(data.results[0].release_date.slice(0,4))
+                    $('.box').css({
+                        backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)), url(${posterURL})`,
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center"
+                    })
+
+                    $('.text')
+                        .html(`<div class="text"><strong>${data.results[0].title}</strong> <br> ${data.results[0].release_date.slice(0, 4)} <br><button id="addToListBtn" type="button" class="btn btn-sm btn-dark mt-2">+</button></div> `)
+
+
+                    $('#addToListBtn').on('click', (e) => {
+                        const movie_id = data.results[0].id; // Replace with the ID of the movie you want to retrieve information for
+                        const api_key = keys.theMovieDb; // Replace with your actual API key
+                        const moviePromise = fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${api_key}`)
+                            .then(response => response.json());
+                        const creditsPromise = fetch(`https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${api_key}`)
+                            .then(response => response.json());
+
+                        Promise.all([moviePromise, creditsPromise])
+                            .then(results => {
+                                const movie = results[0];
+                                const credits = results[1];
+                                // RUNTIME
+                                console.log(movie.runtime); // get the runtime of the movie
+                                console.log(credits.cast); // get the list of actors in the movie
+                                // ACTORS
+                                let movieActors = '';
+                                console.log()
+                                for (let i = 0; i < credits.cast.length; i++) {
+                                    // console.log(credits.cast[i].name + " as " + credits.cast[i].character)
+                                    if (i === credits.cast.length - 1) {
+                                        movieActors += `${credits.cast[i].name}.`;
+                                    } else {
+                                        movieActors += `${credits.cast[i].name}, `;
+                                    }
+                                }
+                                const actorsFiltered = movieActors.split(', ').slice(0, 3).join(', ')
+                                console.log(actorsFiltered)
+
+                                const director = credits.crew.find(member => member.job === "Director").name
+                                console.log(director)
+
+                                // GENRES
+                                let genresAll = ''
+                                for (let i = 0; i < movie.genres.length; i++) {
+                                    // console.log(movie.genres[i].name + " as " + movie.genres[i].character)
+                                    if (i === movie.genres.length - 1) {
+                                        genresAll += `${movie.genres[i].name}.`;
+                                    } else {
+                                        genresAll += `${movie.genres[i].name}, `;
+                                    }
+                                }
+                                console.log(genresAll);
+
+                                // IMAGE PATH
+                                console.log(`https://image.tmdb.org/t/p/w500/${movie.poster_path}`); // get the poster URL of the movie
+
+
+                                console.log('add button clicked')
+                                const newMovie = {
+                                    title: `${data.results[0].title}`,
+                                    year: `${data.results[0].release_date.slice(0, 4)}`,
+                                    director: `${director}`,
+                                    rating: `${data.results[0].vote_average}`,
+                                    runtime: `${movie.runtime}`,
+                                    genre: `${genresAll}`,
+                                    actors: `${actorsFiltered}`
+                                }
+
+                                addMovie(newMovie).then(() => {
+                                    return getMovies()
+                                }).then(movies => {
+                                    console.log(movies)
+                                }).then(() => {
+                                    location.reload()
+                                });
+
+                            })
+
+                    })
+                });
+        }
+    }
+
+// onClick or Enter for Search
+    $('#search-btn').click(getPosterFromSearch);
+    $('#search-input').keyup(function (event) {
+        if (event.keyCode == 13) {
+            getPosterFromSearch();
+        }
+    });
 
 
     function getStars(rating) {

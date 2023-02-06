@@ -31,7 +31,7 @@ body{
 
 .navbar{
     width: 100%;
-    padding: 1em;
+    padding: .4em;
     background: black;
 }
 
@@ -52,6 +52,8 @@ body{
     background-repeat: no-repeat;
     color: white;
     position: relative;
+
+    padding-top: 20em;
 }
 
 .text{
