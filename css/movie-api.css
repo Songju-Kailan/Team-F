@@ -1,12 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster);
 @import url(https://fonts.googleapis.com/css?family=Lato);
-body {
-    background: url(https://static.pexels.com/photos/1043/red-building-industry-bricks-large.jpg) no-repeat;
-    background-size: cover;
-    color: #FFF;
-    /*font-family: 'Lato';*/
-}
-
 
 .page-wrapper{
     display: flex;
@@ -15,18 +8,19 @@ body {
     align-items: center;
 }
 
-body{
-    width: 100%;
-    /*background: #242424;*/
-    background: black;
-
-}
-
 .container{
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100%;
+}
+
+body {
+    background: url(https://static.pexels.com/photos/1043/red-building-industry-bricks-large.jpg) no-repeat;
+    background-size: cover;
+    color: #FFF;
+    width: 100%;
+    background: black;
 }
 
 .navbar{
@@ -41,10 +35,9 @@ body{
     transition: 0.4s;
 }
 
-
 .box{
     background-image:
-    linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 1)),
+            linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 1)),
             url("/images/iron.jpg");
     width: 100%;
     height: 80vh;
@@ -61,6 +54,21 @@ body{
     bottom: 0;
 }
 
+.movie-list{
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 7vw;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    margin-top: 2em;
+    height: 100%;
+    margin-bottom: 40px;
+
+}
+
 #functionGrp{
     display: flex;
     flex-direction: row;
@@ -68,50 +76,37 @@ body{
     align-items: center;
 }
 
-
-.movie-list{
-    align-items: stretch;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-
-    /*border: 1px solid lightgray;*/
-    padding: 1vw;
-
-    overflow-x: scroll;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-
-    margin-top: 2em;
-    height: 100vh;
-}
-
 .movieCard{
     scroll-snap-align: center;
     display: inline-block;
-    max-width: 300px;
-    max-height: 500px;
-    height: 600px;
-    width: 70vw;
+    height: 742px;
+    width: 300px;
     border-radius: 5px;
     margin-right: 10vw;
-
-    font-size: 2vw;
+    font-size: 14px;
     border: none;
     background: none;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transform-origin: center right;
+    transition: transform .5s;
+}
+
+.movieCard:hover {
+    transform:  scale(1.10);
 }
 
 .movieCard > img{
     object-fit: cover;
-    max-width:100%;
-    max-height:300px;
-    width: 100%;
-    height: auto;
+    /*max-width:100%;*/
+    /*max-height:300px;*/
+    /*width: 100%;*/
+    /*height: auto;*/
 }
 
 .movie-column,.movie-row{
-    width: 100%;
-    height: 100%;
+    /*width: 100%;*/
+    /*height: 100%;*/
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -124,20 +119,19 @@ body{
     display: flex;
     flex-direction: column;
     padding: 1em;
-
     overflow-x: hidden;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
-}
 
+}
+/*Modal*/
 .card-text{
-    margin: .3em;
+    margin: .1em;
 }
 
 .modalCard{
     border: none;
 }
-
 
 .modalAdd {
     display: none;
@@ -151,7 +145,6 @@ body{
     z-index: 1;
 }
 
-
 .modalA-content {
     width: 80%;
     max-width: 60rem;
@@ -162,6 +155,7 @@ body{
     text-align: center;
     animation: slide ease 0.8s;
 }
+
 .input-modal{
     width: 100%;
     display: table-cell;
@@ -169,14 +163,13 @@ body{
 }
 
 .input-update{
-    font-size: 3vw;
+    font-size: 1vw;
     width: 100%;
 }
 
 #updateConfirmBtn{
     width: 100%;
 }
-
 
 #closeBtn-add{
     position: absolute;
@@ -199,11 +192,11 @@ body{
     }
 }
 
-
 @media screen and (max-width: 580px) {
     #navbar {
         padding: 20px 10px !important;
     }
+
     #navbar a {
         float: none;
         display: block;
@@ -215,8 +208,8 @@ body{
 }
 
 .delete-btn, .update-btn{
-    width: 16vw;
-    height: 6vh;
+    /*width: 16vw;*/
+    /*height: 9vh;*/
     font-size: 1.5vw;
 }
 
@@ -240,10 +233,7 @@ body{
     font-size: 2em;
     color: black;
 }
-
+/* Hides update/delete button*/
 .hidden-btn{
     visibility: hidden;
 }
-
-
-
