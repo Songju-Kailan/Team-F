@@ -14,7 +14,7 @@
 
                     <div class="row">
 <!--                        Navbar-->
-                        <nav class="navbar bg-body-black fixed-top" id="navbar">
+                        <nav class="navbar navbar-dark bg-body-black fixed-top" id="navbar">
                             <div class="container-fluid">
 
                                 <a href="default" id="logo" class="navbar-brand text-light">Movie</a>
@@ -25,18 +25,21 @@
                                 <div class="offcanvas offcanvas-end bg-black" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                                     <div class="offcanvas-header">
                                         <h5 class="offcanvas-title text-light" id="offcanvasNavbarLabel">Movie</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                     </div>
                                     <div class="offcanvas-body">
                                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                                             <li class="nav-item">
-                                                <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
+                                                <a  id="addButton" type="button" class="nav-link active text-light dropEdit" aria-current="page" href="#" aria-label="Close" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">Add Movie</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a  class="nav-link active text-light dropEdit" aria-current="page" href="#" aria-label="Close" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">Edit</a>
                                             </li>
                                             <li class="nav-item">
                                                 <form class="d-flex" role="search">
                                                     <!--                                    Search-->
-                                                    <input id="search-input" class="search-box form-control me-2" type="text" placeholder="Search for Movies!" aria-label="Search">
-                                                    <button id="search-btn" class="btnSearch btn btn-outline-success" type="submit">Search</button>
+                                                    <input id="search-input" class="search-box form-control me-2 " type="search" placeholder="Search for Movies!" >
+                                                    <button id="search-btn" class="btnSearch btn btn-outline-success" type="submit"  aria-label="Close" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">Search</button>
                                                 </form>
                                             </li>
                                         </ul>
@@ -66,7 +69,7 @@
             </div>
 
 
-            <button id="addButton" type="button" class="btn btn-primary">Add Movie</button>
+<!--            <button id="addButton" type="button" class="btn btn-primary">Add Movie</button>-->
 <!--            Modal for update-->
             <div class="modalAdd" id="modal-add">
                 <div class="modalA-content text-light">
