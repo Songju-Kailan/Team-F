@@ -19,14 +19,10 @@
     const movieTitles = movieData.map((movie) => {
         return movie.title;
     })
-
     console.log(movieTitles)
 
 
     let movieList = await movieData;
-    // console.log(movieList)
-
-
 
 
 
@@ -143,7 +139,6 @@
                 })
         })
     }
-
     showMovies();
 
 
@@ -167,16 +162,25 @@
         }, 500)
     }
 
-
-//  Toggle Edit Mode
-    $('.dropEdit').on('click', function (e) {
-        e.preventDefault()
-        $('.hidden-btn').toggleClass('hidden-btn')
-
-
-        console.log('click')
+// Reload screen on click Logo
+    $('#logo').on('click',function (){
+        location.reload()
     })
 
+//  Toggle Edit Mode on click
+    $('.dropEdit').on('click',function(e){
+        e.preventDefault()
+        $('.hidden-btn').toggleClass('hidden-btn');
+        $('html, body').animate({
+            scrollTop: $("#updateBtn").offset().top
+        }, 500);
+    })
+
+// Click to scroll to the top of the page
+    $("#search-btn", "#savedMovieSearchBtn").click(function() {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+    });
 
 //  Close MODAL on click of close icon for Add
     $('#closeBtn-add').on('click', function (e) {
@@ -193,6 +197,9 @@
 // load update input on click
     $('#movieList').on('click', '.update-btn', function (e) {
         e.preventDefault();
+        $('.update-btn').toggle('hidden-btn');
+        $('.delete-btn').toggle('hidden-btn');
+
         const thisID = $(this).data("id");
         console.log('update button clicked')
         console.log(thisID)
