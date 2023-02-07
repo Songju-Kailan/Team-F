@@ -70,6 +70,18 @@
         $('#movieList').append(moviesSavedList)
     }
     showMovies();
+//  Prevent scrolling the Entire page while scrolling the movieList
+    $('.movie-list').css({
+        'overflow-x': 'scroll',
+        'width': '100%'
+    })
+        .on('scroll', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+    });
+
+
+
 
 
 
