@@ -2,6 +2,10 @@
 
 (async () => {
 
+
+
+
+
 //TODO: Default Variables:
 
     // Movie data into a variable
@@ -14,6 +18,7 @@
         return movie.title;
     })
     console.log(movieTitles)
+
 
 
 
@@ -69,6 +74,7 @@
 
 
 
+
 //TODO: Modal functions
 
     const modalA = document.querySelector(".modalAdd"),
@@ -100,6 +106,8 @@
     $('#addButton').on('click', function () {
         openModalAdd();
     })
+
+
 
 
 
@@ -225,47 +233,6 @@
         });
     })
 
-//  Search from Firebase on Click
-    $('#savedMovieSearchBtn').on('click', async function (e) {
-        e.preventDefault()
-        // getMovies().then ((movies) => {
-
-            const searchValue = $('#savedMovieSearchInput').val();
-            console.log("Searching for: " + searchValue);
-
-            const addMovieName = await movieDBApi(searchValue);
-            let imagePoster = `https://image.tmdb.org/t/p/w500${addMovieName.results[0].poster_path}`
-
-
-            let moviesNewList = '';
-            for (let i = 0; i < movieList.length; i++) {
-                if (movieList[i].title.toLowerCase().includes(searchValue)) {
-                    moviesNewList += (`
-                    <div class="movieCard card mb-1">
-                        <img src="${imagePoster}" class="card-img-top" id="movieImage" alt="...">
-        
-                        <div class="movieInfoGrp card-body bg-black text-light" id="${movieList[i]}">
-        
-                            <div class="card-text text-center" id="title">  ${movieList[i].title} <span class="card-text" id="year"> ${movieList[i].year} </span> </div>
-                            <div class="card-text text-center" id="rating"><span class="stars">${movieList[i].rating}</span> </div>
-                            <div class="card-text" id="genre">${movieList[i].genre} </div>
-                            <div class="card-text" id="director">director: ${movieList[i].director} </div>
-                            <div class="card-text" id="runtime">runtime: ${movieList[i].runtime} hours </div>
-                            <div class="card-text" id="actors">actors: ${movieList[i].actors} </div>
-                        </div>
-                        <div class="buttonGrp d-flex flex-row justify-content-center mt-1 ">
-                        <button id="updateBtn"  data-id="${movieList[i].id}" type="button" class="update-btn btn btn-primary">Update</button>
-                        <button id="deleteBtn"  data-id="${movieList[i].id}" type="button" class="delete-btn btn btn-danger">Delete</button>
-                        </div>
-                    </div>
-            `)
-                    // loadPoster(movies[i])
-                }
-            }
-            $('#movieList').html(moviesNewList)
-        // })
-        // location.reload();
-    })
 
 
 
@@ -273,7 +240,7 @@
 
 //TODO: Search Functions:
 
-// Load Movie info from search
+// Load Movie from TMDB API on Click or Enter
     let getPosterFromSearch = async function (e) {
         e.preventDefault()
         const searchValue = $('#search-input').val();
@@ -373,38 +340,62 @@
                 });
         }
     }
-
-
-// onClick or Enter for Search
     $('#search-btn').click(getPosterFromSearch);
-    $('#search-input').keyup(function (event) {
+    $('#search-input').on('keyup',function (event) {
         if (event.keyCode == 13) {
             getPosterFromSearch();
         }
     });
 
 
-    // function getStars(rating) {
-    //
-    //     // Round to nearest half
-    //     rating = Math.round(rating * 2) / 2;
-    //     let output = [];
-    //
-    //     // Append all the filled whole stars
-    //     for (let i = rating; i >= 1; i--) {
-    //         output.push('<i class="fa fa-star" aria-hidden="true" style="color: gold;"></i>&nbsp;');
-    //
-    //         // If there is a half a star, append it
-    //         if (i == .5) output.push('<i class="fa fa-star-half-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
-    //     }
-    //
-    //     // If there is a half a star, append it
-    //
-    //     // Fill the empty stars
-    //     for (let i = (5 - rating); i >= 1; i--)
-    //         output.push('<i class="fa fa-star-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
-    //
-    //     return output.join('');
-    // }
+//  Search from Firebase on Click or Enter
+    let getSavedMovies = async function(){
+        // getMovies().then ((movies) => {
+
+        const searchValue = $('#savedMovieSearchInput').val();
+        console.log("Searching for: " + searchValue);
+
+        const addMovieName = await movieDBApi(searchValue);
+        let imagePoster = `https://image.tmdb.org/t/p/w500${addMovieName.results[0].poster_path}`
+
+
+        let moviesNewList = '';
+        for (let i = 0; i < movieList.length; i++) {
+            if (movieList[i].title.toLowerCase().includes(searchValue)) {
+                moviesNewList += (`
+                    <div class="movieCard card mb-1">
+                                    <img src="${imagePoster}" class="card-img-top" id="movieImage" alt="...">
+                    
+                                    <div class="movieInfoGrp card-body bg-black text-light" id="${movieList[i]}">
+                    
+                                        <div class="card-text mb-2 text-center" id="title"><span class="title">${movieList[i].title}</span> <span class="card-text" id="year"> (${movieList[i].year}) </span> </div>
+                                        <div class="card-text mb-2 text-center" id="rating"><span class="stars">${movieList[i].rating}</span> </div>
+                                        <div class="card-text mb-4 text-center" id="genre">${movieList[i].genre} </div>
+                                        <div class="card-text" id="director"><span class="text-secondary-emphasis"> Director:</span> ${movieList[i].director} </div>
+                                        <div class="card-text" id="runtime"><span class="text-secondary-emphasis"> Runtime:</span> ${movieList[i].runtime} mins </div>
+                                        <div class="card-text" id="actors"><span class="text-secondary-emphasis"> Actors:</span> ${movieList[i].actors} </div>
+                                    </div>
+                                    <div class="buttonGrp mt-1 ">
+                                    <button id="updateBtn"  data-id="${movieList[i].id}" type="button" class="update-btn hidden-btn btn btn-primary">Update</button>
+                                    <button id="deleteBtn"  data-id="${movieList[i].id}" type="button" class="delete-btn hidden-btn btn btn-danger">Delete</button>
+                                    </div>
+                                </div>
+            `)
+                // location.reload()
+            }
+        }
+        $('#movieList').html(moviesNewList)
+    }
+    $('#savedMovieSearchBtn').on('click', function () {
+        getSavedMovies();
+    })
+    $('#savedMovieSearchInput').on('keyup', function (event){
+        if(event.keyCode == 13){
+            getSavedMovies()
+        }
+    })
+
+
+
 
 })();
