@@ -267,3 +267,11 @@ body {
 .hidden-btn{
     visibility: hidden;
 }
+
+.searchMovie{
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)), url(${posterURL});
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-top: 70px;
+}

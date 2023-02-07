@@ -2,28 +2,15 @@
 
 (async () => {
 
+//=========== Default Variables: ==============//
 
-
-
-
-//TODO: Default Variables:
-
-    // Movie data into a variable
+// Movie data into a variable
     const movieData = await getMovies();
-    console.log(movieData)
 
     let movieList = await movieData;
 
-    const movieTitles = movieData.map((movie) => {
-        return movie.title;
-    })
-    console.log(movieTitles)
 
-
-
-
-
-//TODO: Default Function & API:
+//=========== Default Function & API ==============//
 
 //  Movie Data API
     const movieDBApi = async (movie_title) =>{
@@ -44,26 +31,22 @@
         for (let i = 0; i < movieList.length; i++) {
             const addMovieName = await movieDBApi(movieList[i].title);
             let imagePoster = `https://image.tmdb.org/t/p/w500${addMovieName.results[0].poster_path}`
-
-            moviesSavedList += (`
-                                <div class="movieCard card mb-1">
-                                    <img src="${imagePoster}" class="card-img-top" id="movieImage" alt="...">
-                    
-                                    <div class="movieInfoGrp card-body bg-black text-light" id="${movieList[i]}">
-                    
-                                        <div class="card-text mb-2 text-center" id="title"><span class="title">${movieList[i].title}</span> <span class="card-text" id="year"> (${movieList[i].year}) </span> </div>
-                                        <div class="card-text mb-2 text-center" id="rating"><span class="stars">${movieList[i].rating}</span> </div>
-                                        <div class="card-text mb-4 text-center" id="genre">${movieList[i].genre} </div>
-                                        <div class="card-text" id="director"><span class="text-secondary-emphasis"> Director:</span> ${movieList[i].director} </div>
-                                        <div class="card-text" id="runtime"><span class="text-secondary-emphasis"> Runtime:</span> ${movieList[i].runtime} mins </div>
-                                        <div class="card-text" id="actors"><span class="text-secondary-emphasis"> Actors:</span> ${movieList[i].actors} </div>
-                                    </div>
-                                    <div class="buttonGrp mt-1 ">
-                                    <button id="updateBtn"  data-id="${movieList[i].id}" type="button" class="update-btn hidden-btn btn btn-primary">Update</button>
-                                    <button id="deleteBtn"  data-id="${movieList[i].id}" type="button" class="delete-btn hidden-btn btn btn-danger">Delete</button>
-                                    </div>
+            let cardFormat = `<div class="movieCard card mb-1">
+                                <img src="${imagePoster}" class="card-img-top" id="movieImage" alt="...">
+                                <div class="movieInfoGrp card-body bg-black text-light" id="${movieList[i]}">
+                                    <div class="card-text mb-2 text-center" id="title"><span class="title">${movieList[i].title}</span> <span class="card-text" id="year"> (${movieList[i].year}) </span> </div>
+                                    <div class="card-text mb-2 text-center" id="rating"><span class="stars">${movieList[i].rating}</span> </div>
+                                    <div class="card-text mb-4 text-center" id="genre">${movieList[i].genre} </div>
+                                    <div class="card-text" id="director"><span class="text-secondary-emphasis"> Director:</span> ${movieList[i].director} </div>
+                                    <div class="card-text" id="runtime"><span class="text-secondary-emphasis"> Runtime:</span> ${movieList[i].runtime} mins </div>
+                                    <div class="card-text" id="actors"><span class="text-secondary-emphasis"> Actors:</span> ${movieList[i].actors} </div>
                                 </div>
-                            `)
+                                <div class="buttonGrp mt-1 ">
+                                <button id="updateBtn"  data-id="${movieList[i].id}" type="button" class="update-btn hidden-btn btn btn-primary">Update</button>
+                                <button id="deleteBtn"  data-id="${movieList[i].id}" type="button" class="delete-btn hidden-btn btn btn-danger">Delete</button>
+                                </div>
+                            </div>` // data format
+            moviesSavedList += cardFormat;
         }
         $('#movieList').append(moviesSavedList)
     }
@@ -80,10 +63,7 @@
     });
 
 
-
-
-
-//TODO: Search Functions:
+//=========== Search Functions ================//
 
 // Load Movie from TMDB API on Click or Enter
     let getPosterFromSearch = async function (e) {
@@ -96,11 +76,7 @@
             fetch(`https://api.themoviedb.org/3/search/movie?api_key=${keys.theMovieDb}&query=${searchValue}`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data.results[0].id)
-
                     const posterURL = `https://image.tmdb.org/t/p/w500${data.results[0].poster_path}`;
-                    console.log(data.results[0]);
-
                     $('.box').css({
                         backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)), url(${posterURL})`,
                         backgroundSize: "contain",
@@ -108,10 +84,7 @@
                         backgroundPosition: "center",
                         marginTop: "70px"
                     })
-                    $('.text-main')
-                        .html(`<div class="text-main"><strong>${data.results[0].title}</strong> <br> ${data.results[0].release_date.slice(0, 4)} <br><button id="addToListBtn" type="button" class="btn btn-sm btn-dark mt-2">+</button></div> `)
-
-
+                    $('.text-main').html(`<div class="text-main"><strong>${data.results[0].title}</strong> <br> ${data.results[0].release_date.slice(0, 4)} <br><button id="addToListBtn" type="button" class="btn btn-sm btn-dark mt-2">+</button></div> `)
                     $('#addToListBtn').on('click', async (e) => {
                         const movie_id = data.results[0].id; // Replace with the ID of the movie you want to retrieve information for
                         const api_key = keys.theMovieDb; // Replace with your actual API key
@@ -160,8 +133,7 @@
                                 // IMAGE PATH
                                 console.log(`https://image.tmdb.org/t/p/w500/${movie.poster_path}`);
 
-
-                                console.log('add button clicked')
+                                console.log('add button clicked') // data from API
                                 const newMovie = {
                                     title: `${data.results[0].title}`,
                                     year: `${data.results[0].release_date.slice(0, 4)}`,
@@ -170,18 +142,12 @@
                                     runtime: `${movie.runtime}`,
                                     genre: `${genresAll}`,
                                     actors: `${actorsFiltered}`
-                                }
+                                } // data format
 
                                 addMovie(newMovie).then(() => {
-                                    return getMovies()
-                                }).then(movies => {
-                                    console.log(movies)
-                                }).then(() => {
                                     location.reload()
                                 });
-
                             })
-
                     })
                 });
         }
@@ -198,11 +164,9 @@
     let getSavedMovies = async function(){
 
         const searchValue = $('#savedMovieSearchInput').val();
-        console.log("Searching for: " + searchValue);
 
         const addMovieName = await movieDBApi(searchValue);
         let imagePoster = `https://image.tmdb.org/t/p/w500${addMovieName.results[0].poster_path}`
-
 
         let moviesNewList = '';
         for (let i = 0; i < movieList.length; i++) {
@@ -225,7 +189,7 @@
                                     <button id="deleteBtn"  data-id="${movieList[i].id}" type="button" class="delete-btn hidden-btn btn btn-danger">Delete</button>
                                     </div>
                                 </div>
-            `)
+            `)  // data format
             }
         }
         $('#movieList').html(moviesNewList)
@@ -240,13 +204,8 @@
     })
 
 
+//=========== Modal functions ==============//
 
-
-
-
-
-
-//TODO: Modal functions
 
     const modalA = document.querySelector(".modalAdd"),
         modalContentA = document.querySelector(".modalA-content");
@@ -279,11 +238,7 @@
     })
 
 
-
-
-
-
-//TODO: Click Functions:
+//=========== Click Functions ==============//
 
 // Reload screen on click Logo
     $('#logo').on('click',function (){
@@ -305,7 +260,7 @@
     })
 
 // Click to scroll to the top of the page
-    $("#search-btn", "#savedMovieSearchBtn").click(function() {
+    $("#search-btn").click(function() {
         $("html, body").animate({ scrollTop: 0 }, "slow");
         return false;
     });
@@ -332,7 +287,7 @@
                 <div class=" card-text" id="genre">genre: <input class="input-update form-control-sm" id="genre-input" value=" ${movie.genre} "></div>
                 <div class=" card-text" id="actors">actors: <input class="input-update form-control-sm" id="actors-input" value=" ${movie.actors} "></div>
                 <button id="updateConfirmBtn"  data-id="${movie.id}" type="button" class="update-confirm-btn btn btn-primary mt-1">Update</button>
-        `
+        `  // data format
         })
         $(this).parent().parent().children('.movieInfoGrp').html(movieInfo);
     })
@@ -357,7 +312,7 @@
                     runtime: $('#runtime-input').val(),
                     genre: $('#genre-input').val(),
                     actors: $('#actors-input').val(),
-                }
+                } // data format
                 updateMovie(newMovie).then(() => {
                     return getMovies()
                 }).then(() => {
@@ -379,7 +334,7 @@
             runtime: $('#runtimeA').val(),
             genre: $('#genreA').val(),
             actors: $('#actorsA').val(),
-        }
+        } // data format
 
         addMovie(newMovie).then(() => {
             return getMovies()
@@ -393,8 +348,7 @@
 
 //  Delete movie on Click
     $('#movieList').on('click', '.delete-btn', function (e) {
-        // alert($(this).data('id'))
-        // e.preventDefault()
+        e.preventDefault()
         console.log('clicked')
 
         const thisID = $(this).data("id");
@@ -408,8 +362,6 @@
             location.reload()
         });
     })
-
-
 
 
 })();
