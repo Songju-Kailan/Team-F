@@ -11,13 +11,13 @@
         <div class="page-wrapper">
 
 
-<!--Header-->
+<!-- Header-->
             <div class="container-fluid ">
 
                     <div class="row">
 
 
-<!--Navbar-->
+<!-- Navbar-->
                         <nav class="navbar navbar-dark bg-body-black fixed-top" id="navbar">
                             <div class="container-fluid">
 
@@ -28,7 +28,7 @@
                                 </button>
                                 <div class="offcanvas offcanvas-end bg-black" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                                     <div class="offcanvas-header">
-                                        <h5 class="offcanvas-title text-light" id="offcanvasNavbarLabel">Movie</h5>
+                                        <h5 type="button" class="offcanvas-title text-light" id="offcanvasNavbarLabel">Movie</h5>
                                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                     </div>
                                     <div class="offcanvas-body">
@@ -53,13 +53,13 @@
                         </nav>
                     </div>
 
-<!--Main screen wallpaper-->
+<!-- Main screen wallpaper-->
                 <div class="box" id="poster">
-                    <div class="text">Did you bring your popcorn?</div>
+                    <div class="text-main">Did you bring your popcorn?</div>
                 </div>
             </div>
 
-<!--Function Grp Page-->
+<!-- Function Grp Page-->
             <div class="container mt-5">
                 <div class="row">
                     <div class="functionGrp">
@@ -71,28 +71,28 @@
                 </div>
             </div>
 
-<!--            Modal for update-->
+<!-- Modal for update-->
             <div class="modalAdd" id="modal-add">
                 <div class="modalA-content text-light">
-                    Lets Add a Movie!
+                    <div class="fs-2">Lets Add a Movie!</div>
 
                     <span class="close" id="closeBtn-add">&times;</span>
                     <div class="modalCard card mb-1">
-                        <div class="card-body bg-black text-light">
-                            <div class="card-text"> title: <input class="input-modal input" id="titleA"></div>
-                            <div class="card-text">year:<input class="input-modal input" id="yearA"></div>
-                            <div class="card-text">director:<input class="input-modal input" id="directorA"></div>
-                            <div class="card-text">rating:<input class="input-modal input" id="ratingA"></div>
-                            <div class="card-text">runtime:<input class="input-modal input" id="runtimeA"></div>
-                            <div class="card-text">genre:<input class="input-modal input" id="genreA"></div>
-                            <div class="card-text">actors:<input class="input-modal input" id="actorsA"></div>
+                        <div class="modal-body bg-black text-light">
+                            <div class="modal-text"><span> Title: </span><input class="input-modal input" id="titleA"></div>
+                            <div class="modal-text"><span> Year: </span><input class="input-modal input" id="yearA"></div>
+                            <div class="modal-text"><span> Director: </span><input class="input-modal input" id="directorA"></div>
+                            <div class="modal-text"><span> Rating: </span><input class="input-modal input" id="ratingA"></div>
+                            <div class="modal-text"><span> Runtime: </span><input class="input-modal input" id="runtimeA"></div>
+                            <div class="modal-text"><span> Genre: </span><input class="input-modal input" id="genreA"></div>
+                            <div class="modal-text"><span> Actors: </span><input class="input-modal input" id="actorsA"></div>
                         </div>
                         <button class="btn btn-outline-success" id="addMovieSubmitBtn">Submit</button>
                     </div>
                 </div>
             </div>
 
-
+<!-- Movie cards-->
             <div class="container-fluid">
                     <div class="movie-row row">
                         <div id="movieList" class="movie-list row">

@@ -45,13 +45,15 @@ body {
     background-repeat: no-repeat;
     color: white;
     position: relative;
+    margin-top:70px;
 }
 
-.text{
+.text-main{
     position: absolute;
     text-align: center;
     width: 100%;
     bottom: 0;
+    font-size: 20px;
 }
 
 .movie-list{
@@ -77,22 +79,31 @@ body {
 .movieCard{
     scroll-snap-align: center;
     display: inline-block;
-    height: 742px;
+    height: 650px;
     width: 300px;
     border-radius: 5px;
-    margin-right: 10vw;
+    margin: 0 5vw;
     font-size: 12px;
     border: none;
     background: none;
     cursor: pointer;
     transform-style: preserve-3d;
     transform-origin: center right;
-    transition: transform .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    backface-visibility: hidden;
+}
+
+.movieCard > img{
+    height: 400px;
+    width: auto;
 }
 
 .title{
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
+}
+.stars{
+    color: yellow;
 }
 
 .movieCard:hover {
@@ -124,13 +135,28 @@ body {
 
 }
 /*Modal*/
-.card-text{
-    margin: .1em;
+.modal-body{
+    padding: 2em;
+}
+
+.modal-text{
+    margin: 1em;
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-text span{
+    width: 100px;
+}
+
+.modal-text input{
+    width: 500px;
 }
 
 .modalCard{
     border: none;
 }
+
 
 .modalAdd {
     display: none;
@@ -214,8 +240,6 @@ body {
 }
 
 .delete-btn, .update-btn{
-    /*width: 16vw;*/
-    /*height: 9vh;*/
     font-size: 1.5vw;
 }
 
